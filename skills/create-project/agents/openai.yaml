@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Project"
+  short_description: "Turn project ideas into validated outcomes"
+  default_prompt: "Use $create-project to turn my project idea into a scoped, validated outcome."
