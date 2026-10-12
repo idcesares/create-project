@@ -19,8 +19,9 @@ accessed, state that limit and avoid claiming a current fact was verified.
 
 User decisions concern outcomes and tradeoffs: who this serves, what can be
 excluded, where private data may go, and acceptable ongoing cost. Ask the
-smallest question that unlocks progress, including a recommended default when
-evidence supports one. Do not repeat answered questions.
+smallest question that unlocks progress, with a recommended default when
+evidence supports one. Batch blocking questions into one message, at most
+three, ordered by impact; record each answer where it will be found again.
 
 ## Map uncertainty only when it has dependencies
 
@@ -34,8 +35,8 @@ For a large fuzzy effort, keep a compact table in the existing context record:
 Resolve questions that unlock others first. Each resolution records evidence,
 decision, remaining uncertainty, and affected acceptance criteria. Define a stop
 condition for research, such as a supported API contract or a representative
-benchmark. Reassess after a bounded attempt yields no new evidence; do not keep
-researching or retrying services without a reason to expect a different result.
+benchmark. When a bounded attempt yields no new evidence, reassess: change the
+approach, ask, or record the gap, rather than repeating the same attempt.
 
 ## Choose between research and prototype
 
@@ -48,10 +49,11 @@ researching or retrying services without a reason to expect a different result.
 
 Before prototyping, write the hypothesis, smallest experiment, success measure,
 time or resource bound, and the decision the result will unlock. Keep prototype
-artifacts identifiable and record whether they are retained, adapted, or
-discarded. Do not silently promote an experimental shortcut to production.
+artifacts labeled as prototypes and record whether each is retained, adapted,
+or discarded. Promoting prototype code to production is an explicit decision
+that brings it under the normal acceptance checks.
 
 For architecture choices, compare only plausible options against actual
 requirements, including operational burden and reversibility. Record the choice
-and why the alternatives did not fit. Research-only requests end with findings
-and a next step; they do not automatically become implementation projects.
+and why the alternatives did not fit. A research-only request ends with
+findings and a recommended next step; building on them is a new request.

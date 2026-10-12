@@ -4,10 +4,11 @@ A portable agent skill that turns "I want to build a project" into a scoped,
 validated outcome. It scales from a one-session tool to an uncertain,
 multi-session build without imposing the same ceremony on both.
 
-The agent discovers technical facts, asks for meaningful product decisions,
-keeps useful project knowledge on disk, and verifies an end-to-end result before
-expanding. It can also stop at research, a plan, or a prototype when that is the
-requested outcome.
+The agent discovers technical facts, asks only for decisions that change
+purpose, scope, privacy, or cost, gets one end-to-end behavior running before
+expanding, and backs every completion claim with evidence. It keeps a
+resumable `PROJECT.md` for multi-session work and stops at research, a plan, or
+a prototype when that is the requested endpoint.
 
 ## Install
 
@@ -32,7 +33,7 @@ For a reviewed version, check out a specific tag or commit and install locally:
 ```sh
 git clone https://github.com/idcesares/create-project.git
 cd create-project
-git checkout v0.1.0
+git checkout v0.2.0
 npx skills add . --skill create-project
 ```
 
@@ -74,6 +75,15 @@ You can state constraints and endpoints directly:
 
 ## What it does
 
+The agent follows six steps and stops at the requested endpoint:
+
+1. **Orient**: name the endpoint and read what already exists.
+2. **Route**: size the process by scope, uncertainty, and consequences.
+3. **Contract**: outcome, non-goals, and acceptance checks that name their evidence.
+4. **Tracer bullet**: one thin behavior through every real boundary, observed running.
+5. **Slices**: grow one verified capability at a time.
+6. **Close**: an evidence gate for every claim, then a usable, resumable handoff.
+
 | Project situation | Expected approach |
 | --- | --- |
 | Small, clear task | Brief criteria, implementation, relevant checks |
@@ -82,22 +92,25 @@ You can state constraints and endpoints directly:
 | Research project | Method, baseline, reproducible result, limitations |
 
 Project records can include `PROJECT.md`, `CONTEXT.md`, `docs/SPEC.md`, and
-decision records. Existing equivalents take precedence. Small tasks do not need
-all these files. The skill does not select a universal stack, require another
-skill, create a team of agents, or grant permission to publish or spend money.
+decision records, with templates bundled in the skill. Existing equivalents
+take precedence, and small tasks need none of them. The skill does not select a
+universal stack, require another skill, create a team of agents, or grant
+permission to publish or spend money.
 
 ## Repository layout
 
 ```text
 skills/create-project/
-  SKILL.md                 Entry point and routing
+  SKILL.md                 Entry point: workflow, evidence gate, traps
+  references/              Conditional guidance, loaded on demand
+  assets/                  PROJECT.md, SPEC.md, and ADR templates
   agents/openai.yaml       Optional Codex interface metadata
-  references/              Conditional workflow guidance
   LICENSE                  License travels with the installed folder
-scripts/validate.py        Maintainer package checks
-tests/test_package.py      Portability regression tests
-evals/scenarios.md         Behavioral evaluation requests and rubric
-docs/design.md            Design choices and source attribution
+scripts/validate.py        Package and eval definition checks
+scripts/run_evals.py       Runs behavioral cases against an agent CLI
+tests/                     Regression tests for both scripts
+evals/                     Cases, fixtures, trigger queries, grading guide
+docs/design.md             Design choices, comparison, attribution
 ```
 
 The installable folder is self-contained and follows the
@@ -118,22 +131,28 @@ python scripts/validate.py
 python -m unittest discover -s tests -v
 ```
 
-CI runs package checks and regression tests on Windows and Linux. Checks cover
-frontmatter, portable local links, a bundled license, and Codex metadata. They
-do not prove an agent will follow the workflow. Use the
-[behavioral scenarios](evals/scenarios.md) for changes to routing or decisions.
-The [initial validation record](docs/validation.md) states what was tested.
-Include the scenario, observed failure, proposed correction, and validation
+CI runs package checks, regression tests, and a prepare-only pass of the
+evaluation harness on Windows and Linux. Checks cover frontmatter, portable
+local links, files bundled but never linked, reference length, a bundled
+license, Codex metadata, and eval definitions. They do not prove an agent will
+follow the workflow: for changes to routing or decisions, run the
+[behavioral evaluations](evals/README.md) with and without the skill. The
+[validation record](docs/validation.md) states what was actually tested.
+Include the case, observed failure, proposed correction, and validation
 evidence in contributions. Avoid adding universal rules for one unusual case.
 
 Maintainers publish version tags after checks pass and review the behavioral
-impact. The initial version is `0.1.0`; update the skill metadata and tag together.
+impact. The current version is `0.2.0`; update the skill metadata,
+[changelog](CHANGELOG.md), and tag together.
 For release preparation, follow the concise procedure in
 [the design notes](docs/design.md).
 
 ## License and inspiration
 
-[MIT](LICENSE). Inspired by the workflow concepts in
-[Matt Pocock's skills](https://github.com/mattpocock/skills), with original
-instructions tailored to portable, proportional project work. See
-[design notes](docs/design.md) for what was retained and changed.
+[MIT](LICENSE). Inspired by workflow concepts in
+[Matt Pocock's skills](https://github.com/mattpocock/skills),
+[Superpowers](https://github.com/obra/superpowers),
+[Anthropic's skill-creator](https://github.com/anthropics/skills), and
+[Spec Kit](https://github.com/github/spec-kit), with original instructions
+tailored to portable, proportional project work. See the
+[design notes](docs/design.md) for what was adopted, what was not, and why.

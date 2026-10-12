@@ -21,13 +21,13 @@ prove remote authentication or compatibility.
 For each slice, understand the contract, choose the observable check, implement,
 run the check, and review the changes against both acceptance and project
 conventions. Where practical, write a failing behavioral test before changing
-code and confirm it fails for the intended reason. Do not force test scaffolds
-onto static prose or low-impact visual edits.
+code and confirm it fails for the intended reason. Static prose and low-impact
+visual edits are verified by reading and viewing them.
 
 Add tests at stable interfaces where a failure would reveal a real defect.
 Include relevant empty, malformed, unauthorized, duplicate, and unavailable
-cases. Select the cases from the actual behavior; do not create every category
-mechanically. Re-run checks affected by changes and existing required checks.
+cases, selected from the actual behavior rather than applied as a checklist.
+Re-run checks affected by changes and existing required checks.
 Broaden validation only for a demonstrated concern.
 
 When a check fails, distinguish an implementation defect from environment,
@@ -50,8 +50,8 @@ useful independent work and preserve the exact blocker.
 For AI systems, distinguish deterministic contract tests from variable model
 quality. Define the rubric and evaluation cases before tuning on them. Keep a
 held-out set when iterating on quality, record model and configuration, and
-report measured outcomes without implying deterministic guarantees. Do not run
-paid evaluations beyond existing authorization.
+report measured outcomes as measurements, not guarantees. Paid evaluation runs
+stay within existing authorization.
 
 For sensitive data or consequential writes, inspect the actual trust boundaries:
 who may read or modify what, where secrets are loaded, and how failed or repeated
@@ -65,4 +65,5 @@ If workers are available and authorized, assign independent file ownership and
 explicit input/output contracts. A worker's report does not replace integration
 verification. Review the combined result for interface mismatches, missing
 failure behavior, accidental scope growth, and documentation that no longer
-matches execution. Avoid introducing speculative infrastructure during review.
+matches execution. Fix what review finds within scope; record the rest as
+follow-ups instead of adding speculative infrastructure.

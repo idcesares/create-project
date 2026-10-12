@@ -15,8 +15,10 @@ delivery note. A small task can report the same information in a few sentences.
 
 Use exact commands or artifact links where useful. Identify what was exercised
 and under which environment. Report failures and not-run checks explicitly.
-Avoid broad "security passed" or numerical compliance claims unsupported by a
-defined method. Separate acceptance failures from optional future improvements.
+Make claims as narrow as the method behind them: "dependency audit found no
+known advisories" rather than "secure", and observed counts rather than
+compliance percentages. Separate acceptance failures from optional future
+improvements.
 
 Review both the intended behavior and the quality of the changes. Inspect the
 actual delivery for placeholders in functional paths, swallowed errors, missing
@@ -31,16 +33,16 @@ or agent can locate intent, current implementation, evidence, and next steps.
 When reproducibility matters, record input provenance and dependency versions.
 
 Prepare a concrete artifact before seeking any missing publication or deployment
-authorization. Existing explicit authorization remains valid; do not require a
-ceremonial second approval. Resolve a missing destination, visibility, or cost
-decision only if it cannot be inferred from the request and environment.
+authorization. Existing explicit authorization remains valid without a second
+approval. Ask about destination, visibility, or cost only when the request and
+environment leave it open.
 
 After an authorized publish or deploy, verify the actual destination and report
-its link and status. Do not mark a publication complete because a local build or
-push command merely started. Do not create external issues, send messages, or
-schedule monitors as an incidental part of delivery.
+its link and status; a started build or push command is not a publication.
+External issues, messages, and scheduled monitors are separate actions that
+need their own request.
 
 If an external prerequisite blocks completion, leave the working result, exact
-blocker, and next command or action. Do not describe the blocked requirement as
-delivered. A plan-only request is complete when its requested plan is ready;
-an implementation request still needs its authorized implementation.
+blocker, and next command or action, and report the blocked requirement as
+not delivered. A plan-only request is complete when its plan is ready; an
+implementation request still needs its authorized implementation.

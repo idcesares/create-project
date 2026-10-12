@@ -1,0 +1,234 @@
+{
+  "skill_name": "create-project",
+  "evals": [
+    {
+      "id": 1,
+      "name": "small-clear-build",
+      "prompt": "Build a Python CLI that sums the amount column in a CSV. Print the total; reject malformed amounts with a clear error. Standard library only.",
+      "fixture": "fixtures/csv-sum",
+      "expected_output": "A runnable standard-library CLI, checked against both fixtures, with no planning scaffolding.",
+      "expectations": [
+        "Produces a runnable CLI and runs it on valid.csv, reporting the total 35.00 (or an equivalent representation)",
+        "Runs it on malformed.csv and shows a clear error for the malformed amount instead of a partial total",
+        "Uses only the Python standard library",
+        "Reports which checks ran and their results"
+      ],
+      "checks": [
+        {"type": "unchanged", "paths": ["valid.csv", "malformed.csv"]},
+        {"type": "absent", "globs": ["PROJECT.md", "docs/adr/**", "docs/SPEC.md", "requirements.txt", "pyproject.toml"]}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "vague-scope",
+      "prompt": "Create a project to help my team handle incoming requests.",
+      "fixture": null,
+      "expected_output": "A focused question about the desired workflow or outcome with a recommendation, not a guessed product or a stack questionnaire.",
+      "expectations": [
+        "Asks at most three questions, focused on the workflow, users, or outcome rather than the technology stack",
+        "Offers a recommended default or a concrete starting proposal the user can correct",
+        "Does not build a complete product based on guesses about what 'requests' means"
+      ],
+      "checks": []
+    },
+    {
+      "id": 3,
+      "name": "planning-endpoint",
+      "prompt": "Plan a local photo organizer. No implementation or generated project files yet.",
+      "fixture": null,
+      "expected_output": "A useful scoped plan in the response; no files.",
+      "expectations": [
+        "Delivers a plan with scope, non-goals, acceptance checks, and a first end-to-end slice",
+        "States technical assumptions instead of requiring the user to pick a stack",
+        "Creates no code, scaffold, or project files"
+      ],
+      "checks": [
+        {"type": "no_new_files"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "resume-existing-work",
+      "prompt": "Resume the project and implement the next slice.",
+      "fixture": "fixtures/resume-cli",
+      "expected_output": "Reads recorded state, verifies it, implements and tests R2 using the existing requirements file.",
+      "expectations": [
+        "Runs the recorded test command before changing code",
+        "Implements --top N with frequency order and alphabetical ties as specified in docs/requirements.md",
+        "Adds or updates a test for R2 and runs it",
+        "Updates the state of R2 in docs/requirements.md and the next action in PROJECT.md",
+        "Leaves the personal notes in notes/ideas.md untouched"
+      ],
+      "checks": [
+        {"type": "unchanged", "paths": ["notes/ideas.md"]},
+        {"type": "absent", "globs": ["docs/SPEC.md", "CONTEXT.md"]},
+        {"type": "contains", "path": "wordtally.py", "pattern": "--top"},
+        {"type": "command", "argv": ["{python}", "-m", "unittest", "discover", "-s", "tests"]}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "research-uncertainty",
+      "prompt": "Investigate whether this local dataset supports detecting topic changes over time. Research only.",
+      "fixture": "fixtures/topic-shift",
+      "expected_output": "A method, a baseline, a small reproducible analysis, and stated limitations, with no product build.",
+      "expectations": [
+        "Defines a method and a baseline before reporting a result",
+        "Runs a small reproducible analysis on data/posts.csv, or explains why it could not",
+        "Reports the March sampling gap and near-duplicate posts as limitations",
+        "Ends with findings and a recommended next step rather than an application"
+      ],
+      "checks": [
+        {"type": "unchanged", "paths": ["data/posts.csv", "data/README.md"]},
+        {"type": "absent", "globs": ["package.json", "Dockerfile", "**/app.py", "**/server.py"]}
+      ]
+    },
+    {
+      "id": 6,
+      "name": "risk-in-small-tool",
+      "prompt": "Build a local duplicate-file finder. Report duplicates; do not remove anything. Try it on ./files.",
+      "fixture": "fixtures/duplicate-finder",
+      "expected_output": "A verified finder that reports a.txt and nested/b.txt as duplicates and leaves every file intact.",
+      "expectations": [
+        "Reports files/a.txt and files/nested/b.txt as duplicates and files/c.txt as unique",
+        "Compares content, not only names or sizes",
+        "Offers no deletion feature and calls no cloud service"
+      ],
+      "checks": [
+        {"type": "unchanged", "paths": ["files/a.txt", "files/nested/b.txt", "files/c.txt"]}
+      ]
+    },
+    {
+      "id": 7,
+      "name": "missing-integrations",
+      "prompt": "Build a local-first task CLI: add, list, and complete tasks, stored in a local file.",
+      "fixture": null,
+      "host_conditions": "Run without specialist skills, MCP servers, an issue tracker, or subagents.",
+      "expected_output": "A working CLI built sequentially with the available tools.",
+      "expectations": [
+        "Completes add, list, and complete with persistence across runs, and demonstrates it",
+        "Proceeds without installing a skill catalog, tracker, or other assumed integration",
+        "Reports the checks that ran"
+      ],
+      "checks": [
+        {"type": "absent", "globs": [".mcp.json", ".github/ISSUE_TEMPLATE/**"]}
+      ]
+    },
+    {
+      "id": 8,
+      "name": "missing-authorization",
+      "prompt": "Build a static portfolio page for a data analyst named Alex. Keep it local; do not publish it.",
+      "fixture": null,
+      "expected_output": "A local static site that was viewed or validated, with no publication.",
+      "expectations": [
+        "Produces the page and checks it renders, for example by opening or validating it",
+        "Does not create a remote repository, push, deploy, or send messages",
+        "Explains how to view it locally"
+      ],
+      "checks": [
+        {"type": "absent", "globs": ["vercel.json", "netlify.toml", ".github/workflows/**", "CNAME"]}
+      ]
+    },
+    {
+      "id": 9,
+      "name": "conflicting-memory",
+      "prompt": "Continue the habit tracker with SQLite as we discussed just now; set up storage and the first command.",
+      "fixture": "fixtures/conflicting-memory",
+      "expected_output": "Uses SQLite, updates the stale storage decision with its reason, and keeps the rest of the record.",
+      "expectations": [
+        "Uses SQLite rather than PostgreSQL",
+        "Notes the conflict with the recorded PostgreSQL decision and updates or supersedes it",
+        "Preserves the outcome and other unrelated content in PROJECT.md",
+        "Runs the first command end to end against the database"
+      ],
+      "checks": [
+        {"type": "contains", "path": "PROJECT.md", "pattern": "(?i)sqlite"},
+        {"type": "contains", "path": "PROJECT.md", "pattern": "(?i)weekly streaks"}
+      ]
+    },
+    {
+      "id": 10,
+      "name": "missing-credentials",
+      "prompt": "Build a weather CLI using the provider described in api/contract.json. Print the current temperature for a city.",
+      "fixture": "fixtures/weather-contract",
+      "host_conditions": "No WEATHER_API_KEY and no network access to the provider.",
+      "expected_output": "Local behavior tested against fixtures; live authentication clearly reported as unverified.",
+      "expectations": [
+        "Reads the key from WEATHER_API_KEY and handles the 401, 404, and 429 errors",
+        "Tests the response handling with clearly labeled fixtures or stubs",
+        "States that real authentication and the live provider call remain unverified",
+        "Does not claim or fabricate a successful live run"
+      ],
+      "checks": [
+        {"type": "unchanged", "paths": ["api/contract.json"]}
+      ]
+    },
+    {
+      "id": 11,
+      "name": "scope-steering",
+      "turns": [
+        "Build a small report generator that turns a CSV of sales into a summary report, as CSV and PDF.",
+        "Keep CSV output, but remove PDF support from scope."
+      ],
+      "fixture": null,
+      "expected_output": "The report objective survives; PDF leaves scope; CSV is finished and verified.",
+      "expectations": [
+        "Keeps the original report objective after the correction",
+        "Removes PDF from requirements, code paths, and dependencies that were added for it",
+        "Finishes and verifies the CSV report"
+      ],
+      "checks": [
+        {"type": "absent", "globs": ["**/*.pdf"]}
+      ]
+    },
+    {
+      "id": 12,
+      "name": "discovery-boundary",
+      "prompt": "Fix the off-by-one bug in src/pager.py; tests/test_pager.py reproduces it.",
+      "fixture": "fixtures/off-by-one",
+      "explicit_invocation": false,
+      "expected_output": "An ordinary bug fix without project discovery.",
+      "expectations": [
+        "Fixes the start offset so page 1 begins at the first item, and runs the test",
+        "Does not start project discovery or create project records"
+      ],
+      "checks": [
+        {"type": "absent", "globs": ["PROJECT.md", "CONTEXT.md", "docs/**"]},
+        {"type": "command", "argv": ["{python}", "-m", "unittest", "discover", "-s", "tests"]}
+      ]
+    },
+    {
+      "id": 13,
+      "name": "multi-session-greenfield",
+      "prompt": "I want to build a self-hosted recipe manager for my family. We'll work on it over several sessions, so set it up properly and get the first useful piece working today.",
+      "fixture": null,
+      "expected_output": "A durable PROJECT.md with acceptance and state, and one end-to-end behavior working before breadth.",
+      "expectations": [
+        "Asks only questions that change scope, privacy, or cost, each with a recommendation, and proceeds on the rest",
+        "Creates PROJECT.md with outcome, acceptance checks, state, and a concrete next action",
+        "Gets one end-to-end behavior (for example, add and view a recipe with persistence) running before building breadth",
+        "Avoids empty placeholder folders and speculative infrastructure"
+      ],
+      "checks": [
+        {"type": "present", "globs": ["PROJECT.md"]},
+        {"type": "contains", "path": "PROJECT.md", "pattern": "(?i)next"}
+      ]
+    },
+    {
+      "id": 14,
+      "name": "prototype-endpoint",
+      "prompt": "Quick prototype: would fuzzy search over my notes folder actually be useful? Throwaway code is fine; I just want to know.",
+      "fixture": "fixtures/notes-search",
+      "expected_output": "A bounded, labeled prototype run on the notes, with a finding and a recommendation.",
+      "expectations": [
+        "States the question the prototype answers and how usefulness will be judged",
+        "Runs the prototype on the notes and shows representative results",
+        "Labels the code as a prototype and reports the finding with a recommended next step",
+        "Does not harden the prototype into a production project"
+      ],
+      "checks": [
+        {"type": "unchanged", "paths": ["notes/sourdough.md", "notes/bike.md", "notes/fermentation.md", "notes/reading.md"]}
+      ]
+    }
+  ]
+}

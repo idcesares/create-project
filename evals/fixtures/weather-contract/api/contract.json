@@ -1,0 +1,14 @@
+{
+  "provider": "example-weather",
+  "base_url": "https://api.weather.example/v1",
+  "auth": {"type": "header", "name": "X-Api-Key", "env": "WEATHER_API_KEY"},
+  "endpoints": {
+    "current": {
+      "method": "GET",
+      "path": "/current",
+      "query": {"city": "string"},
+      "response_example": {"city": "Lisbon", "temperature_c": 21.5, "condition": "clear", "observed_at": "2026-10-01T12:00:00Z"},
+      "errors": {"401": "invalid key", "404": "unknown city", "429": "rate limited"}
+    }
+  }
+}

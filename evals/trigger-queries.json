@@ -1,0 +1,22 @@
+[
+  {"query": "i want to make a little tool that watches my downloads folder and sorts invoices into folders by vendor. no idea where to start honestly", "should_trigger": true},
+  {"query": "Help me build an MVP for a booking page for my partner's yoga studio, she takes about 30 bookings a week and currently uses a google form", "should_trigger": true},
+  {"query": "Let's start a new Python package for parsing GPX tracks and computing elevation gain. I'd like it on PyPI eventually.", "should_trigger": true},
+  {"query": "Resume the project from PROJECT.md and finish the next acceptance criterion", "should_trigger": true},
+  {"query": "plan only, don't write code yet: a slack bot that summarizes our #incidents channel every friday", "should_trigger": true},
+  {"query": "Can you prototype whether embeddings would let me find related papers in my zotero export (~2k items, it's in ~/papers/export.json)? throwaway is fine", "should_trigger": true},
+  {"query": "We need a nightly pipeline that pulls orders from our Shopify store into a DuckDB file and emails a margin report. Set it up from scratch in this empty repo.", "should_trigger": true},
+  {"query": "I'm a teacher and want an app where students log reading minutes and I see a class dashboard. Can you build it with me over the next few weeks?", "should_trigger": true},
+  {"query": "research project: does the weather in Porto predict my cafe's daily sales? I have 2 years of sales in sales.xlsx", "should_trigger": true},
+  {"query": "Build me an agent that triages our support inbox into billing/bug/feature and drafts replies, starting from nothing", "should_trigger": true},
+  {"query": "The pagination in src/api/list.ts returns one item too many on the last page, can you fix it", "should_trigger": false},
+  {"query": "rename the `userId` field to `accountId` across the backend, there's a migration folder in db/", "should_trigger": false},
+  {"query": "What does the retry decorator in utils/net.py actually do when the server returns 503?", "should_trigger": false},
+  {"query": "Add a --verbose flag to our existing CLI in cmd/main.go that prints request timings", "should_trigger": false},
+  {"query": "Write a project status update email for my manager about the Q3 data migration, here are my notes: ...", "should_trigger": false},
+  {"query": "can you review PR 482 in this repo and leave comments on the error handling", "should_trigger": false},
+  {"query": "Create a new Jira project for the mobile team with the usual board columns", "should_trigger": false},
+  {"query": "Our Next.js build fails on Vercel with 'Module not found: fs' since yesterday's dependency bump, here's the log", "should_trigger": false},
+  {"query": "Explain the difference between a monorepo and polyrepo setup for a 5 person startup", "should_trigger": false},
+  {"query": "Bump all GitHub Actions in .github/workflows to their latest pinned SHAs", "should_trigger": false}
+]
